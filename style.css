@@ -1,0 +1,409 @@
+/* ===== CSS Variables ===== */
+:root {
+    --primary-gradient: linear-gradient(135deg, #0891b2 0%, #06b6d4 50%, #22d3ee 100%);
+    --primary-color: #0891b2;
+    --primary-light: #06b6d4;
+    --primary-lighter: #22d3ee;
+    --bg-color: #f0f9ff;
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --text-primary: #0c4a6e;
+    --text-secondary: #64748b;
+    --text-light: #94a3b8;
+    --shadow-sm: 0 2px 8px rgba(8, 145, 178, 0.1);
+    --shadow-md: 0 4px 16px rgba(8, 145, 178, 0.15);
+    --shadow-lg: 0 8px 32px rgba(8, 145, 178, 0.2);
+    --border-radius: 16px;
+    --border-radius-sm: 8px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== Reset & Base ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-color);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ===== Header ===== */
+.header {
+    background: var(--primary-gradient);
+    padding: 32px 20px 48px;
+    position: relative;
+    overflow: hidden;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.header::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+}
+
+.header-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 16px;
+}
+
+.info-badges {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.badge {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: white;
+    font-weight: 500;
+}
+
+/* ===== Tab Navigation ===== */
+.tab-nav {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 16px;
+    margin-top: -24px;
+    position: relative;
+    z-index: 10;
+}
+
+.tab-btn {
+    flex: 1;
+    max-width: 120px;
+    background: var(--card-bg);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 14px 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.tab-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.tab-btn.active {
+    background: var(--primary-gradient);
+    color: white;
+}
+
+.tab-day {
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.tab-date {
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+.tab-btn.active .tab-day,
+.tab-btn.active .tab-date {
+    color: white;
+}
+
+/* ===== Main Content ===== */
+.main-content {
+    padding: 24px 16px;
+    padding-bottom: 100px;
+}
+
+.day-section {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+
+.day-section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.day-header {
+    margin-bottom: 20px;
+}
+
+.day-header h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* ===== Schedule Cards ===== */
+.schedule-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.schedule-card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 16px;
+    display: flex;
+    gap: 14px;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.schedule-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--primary-gradient);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.schedule-card:hover {
+    transform: translateX(4px);
+    box-shadow: var(--shadow-md);
+}
+
+.schedule-card:hover::before {
+    opacity: 1;
+}
+
+.schedule-card:active {
+    transform: scale(0.98);
+}
+
+/* Card Types */
+.schedule-card[data-type="indoor"]::before {
+    background: linear-gradient(180deg, #f59e0b, #fbbf24);
+}
+
+.schedule-card[data-type="outdoor"]::before {
+    background: linear-gradient(180deg, #10b981, #34d399);
+}
+
+.schedule-card[data-type="drive"]::before {
+    background: linear-gradient(180deg, #6366f1, #818cf8);
+}
+
+.schedule-card[data-type="mixed"]::before {
+    background: linear-gradient(180deg, #8b5cf6, #a78bfa);
+}
+
+.schedule-card[data-type="transport"]::before {
+    background: linear-gradient(180deg, #64748b, #94a3b8);
+}
+
+.schedule-card[data-type="accommodation"]::before {
+    background: linear-gradient(180deg, #ec4899, #f472b6);
+}
+
+.card-icon {
+    font-size: 2rem;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.card-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.card-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    border-radius: 12px;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.card-badge.indoor {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    color: #92400e;
+}
+
+.card-badge.outdoor {
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    color: #065f46;
+}
+
+.card-badge.drive {
+    background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
+    color: #3730a3;
+}
+
+.card-badge.mixed {
+    background: linear-gradient(135deg, #ede9fe, #ddd6fe);
+    color: #5b21b6;
+}
+
+.card-time {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 4px;
+}
+
+.card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.card-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* ===== Footer ===== */
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.05);
+    z-index: 100;
+}
+
+.footer p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* ===== Responsive ===== */
+@media (min-width: 480px) {
+    .title {
+        font-size: 2rem;
+    }
+    
+    .schedule-card {
+        padding: 20px;
+    }
+    
+    .card-icon {
+        font-size: 2.5rem;
+        width: 56px;
+        height: 56px;
+    }
+}
+
+@media (min-width: 768px) {
+    .header {
+        padding: 48px 32px 64px;
+    }
+    
+    .main-content {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 32px 24px;
+        padding-bottom: 100px;
+    }
+    
+    .tab-nav {
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* ===== Animations ===== */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.schedule-card {
+    animation: slideUp 0.5s ease backwards;
+}
+
+.schedule-card:nth-child(1) { animation-delay: 0.05s; }
+.schedule-card:nth-child(2) { animation-delay: 0.1s; }
+.schedule-card:nth-child(3) { animation-delay: 0.15s; }
+.schedule-card:nth-child(4) { animation-delay: 0.2s; }
+.schedule-card:nth-child(5) { animation-delay: 0.25s; }
+.schedule-card:nth-child(6) { animation-delay: 0.3s; }
+.schedule-card:nth-child(7) { animation-delay: 0.35s; }
+.schedule-card:nth-child(8) { animation-delay: 0.4s; }
+.schedule-card:nth-child(9) { animation-delay: 0.45s; }
+.schedule-card:nth-child(10) { animation-delay: 0.5s; }
